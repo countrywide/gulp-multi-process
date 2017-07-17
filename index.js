@@ -9,9 +9,12 @@ var gulpMultiProcess = function(tasks, cb) {
   tasks.forEach(function(taskName) {
     var args = [process.argv[1], taskName];
 
-    process.argv.forEach(function (val) {
+    process.argv.forEach(function (val, i) {
       if(val[0] === '-' && val !== '--gulpfile') {
         args.push(val);
+        if (process.argv[i+1] && process.argv[i+1][0] !== '-') {
+          args.push(process.argv[i+1]);
+        }
       }
     });
 
